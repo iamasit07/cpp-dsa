@@ -1,31 +1,26 @@
 class Solution {
 public:
-    void setFun(vector<vector<int>>& matrix, int i, int j) {
-        int n = matrix.size();
-        int m = matrix[0].size();
-        for (int x = 0; x < i; x++)
-            matrix[x][j] = 0;
-        for (int x = i + 1; x < n; x++)
-            matrix[x][j] = 0;
-
-        for (int x = 0; x < j; x++)
-            matrix[i][x] = 0;
-        for (int x = j + 1; x < m; x++)
-            matrix[i][x] = 0;
-    }
     void setZeroes(vector<vector<int>>& matrix) {
-        vector<pair<int, int>> ans;
-        int n = matrix.size();
-        int m = matrix[0].size();
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (matrix[i][j] == 0)
-                    ans.push_back({i, j});
+        bool zeroinFirstCol = false;
+        for (int row = 0; row < matrix.size(); row++) {
+            if (matrix[row][0] == 0) zeroinFirstCol = true;
+            for (int col = 1; col < matrix[0].size(); col++) {
+                if (matrix[row][col] == 0) {
+                    matrix[row][0] = 0;
+                    matrix[0][col] = 0;
+                }
             }
         }
 
-        for (auto i : ans) {
-            setFun(matrix, i.first, i.second);
+        for (int row = matrix.size() - 1; row >= 0; row--) {
+            for (int col = matrix[0].size() - 1; col >= 1; col--) {
+                if (matrix[row][0] == 0 || matrix[0][col] == 0) {
+                    matrix[row][col] = 0;
+                }
+            }
+            if (zeroinFirstCol) {
+                matrix[row][0] = 0;
+            }
         }
     }
 };
