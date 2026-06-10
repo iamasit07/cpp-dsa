@@ -22,7 +22,9 @@ public:
         n = (len - n) + 1;
 
         if (n == 1) {
+            ListNode* temp = head;
             head = head->next;
+            delete temp;
             return head;
         }
 
@@ -33,8 +35,8 @@ public:
         }
 
         ListNode* temp = itr->next;
-        if (itr->next != nullptr)
-            itr->next = itr->next->next;
+        itr->next = itr->next->next;
+        delete temp;
 
         return head;
     }
