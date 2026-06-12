@@ -11,9 +11,9 @@
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
-        vector<int> ans;
+        string ans = "";
         while (head != nullptr) {
-            ans.push_back(head->val);
+            ans += '0' + (head->val);
             head = head->next;
         }
 
