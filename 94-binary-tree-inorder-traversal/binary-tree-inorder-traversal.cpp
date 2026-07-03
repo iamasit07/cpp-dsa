@@ -13,17 +13,28 @@
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
-        vector<int> ans;
-        trav(root, ans);
-        return ans;
-    }
+        vector<int> res;
+        TreeNode *curr = root, *pre;
 
-private:
-    void trav(TreeNode* root, vector<int>& ans) {
-        if (root != nullptr) {
-            trav(root->left, ans);
-            ans.push_back(root->val);
-            trav(root->right, ans);
+        while (curr != nullptr) {
+            if (curr->left == nullptr) {
+                res.push_back(curr->val);
+                curr = curr->right;
+            } else {
+                pre = curr->left;
+                while (pre->right != nullptr && pre->right != curr)
+                    pre = pre->right;
+
+                if (pre->right == nullptr) {
+                    pre->right = curr;
+                    curr = curr->left;
+                } else {
+                    pre->right = nullptr;
+                    res.push_back(curr->val);
+                    curr = curr->right;
+                }
+            }
         }
+        return res;
     }
 };
