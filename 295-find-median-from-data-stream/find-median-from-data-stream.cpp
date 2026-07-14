@@ -1,6 +1,7 @@
 class MedianFinder {
 private:
     multiset<double> lower_half, upper_half;
+
 public:
     MedianFinder() {}
     void addNum(int num) {
@@ -27,3 +28,10 @@ public:
             return (*lower_half.rbegin() + *upper_half.begin()) / 2;
     }
 };
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder* obj = new MedianFinder();
+ * obj->addNum(num);
+ * double param_2 = obj->findMedian();
+ */
