@@ -15,12 +15,10 @@ public:
             {5, "V"},    {4, "IV"},   {1, "I"}};
 
         string ans = "";
-        int x = 0;
-        while (x < a.size() and num > 0) {
-            int s = num / a[x].first;
-            ans += repeat(s, a[x].second);
-            num %= a[x].first;
-            x++;
+        for (auto [x, y] : a) {
+            int s = num / x;
+            ans += repeat(s, y);
+            num %= x;
         }
 
         return ans;
