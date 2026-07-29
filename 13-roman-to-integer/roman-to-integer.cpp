@@ -10,24 +10,12 @@ public:
         a['D'] = 500;
         a['M'] = 1000;
 
-        int ans = 0;
-        for (int i = (s.length() - 1); i >= 0; i--) {
-            if (i == 0) {
+        int n = s.length(), ans = a[s[n - 1]];
+        for (int i = n - 2; i >= 0; i--) {
+            if (a[s[i]] < a[s[i + 1]])
+                ans -= a[s[i]];
+            else
                 ans += a[s[i]];
-                break;
-            }
-
-            if ((s[i - 1] == 'I' and s[i] == 'V') or
-                (s[i - 1] == 'I' and s[i] == 'X') or
-                (s[i - 1] == 'X' and s[i] == 'L') or
-                (s[i - 1] == 'X' and s[i] == 'C') or
-                (s[i - 1] == 'C' and s[i] == 'D') or
-                (s[i - 1] == 'C' and s[i] == 'M')) {
-                ans += a[s[i]] - a[s[i - 1]];
-                i--;
-            } else {
-                ans += a[s[i]];
-            }
         }
         return ans;
     }
