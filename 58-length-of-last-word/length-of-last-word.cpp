@@ -18,8 +18,6 @@ public:
     int lengthOfLastWord(string s) {
         string filter = fun(s);
         int start = 0, n = filter.length();
-        if (filter[n - 1] == ' ')
-            filter.pop_back();
         n = filter.length();
         for (int i = 0; i < (n - 1); i++) {
             if (filter[i] == ' ' and filter[i + 1] != ' ')
