@@ -1,22 +1,25 @@
 class Solution {
 public:
     int trap(vector<int>& height) {
-        int start = 0, end = height.size() - 1;
-        int leftMax = 0, rightMax = 0, totalWater = 0;
-
-        while (start < end) {
-            leftMax = max(leftMax, height[start]);
-            rightMax = max(rightMax, height[end]);
-
-            if (leftMax < rightMax) {
-                totalWater += leftMax - height[start];
-                start++;
-            } else {
-                totalWater += rightMax - height[end];
-                end--;
+        int lastMax = 0, total = 0;
+        int n = height.size();
+        for (int i = 0; i < n; i++) {
+            if (height[i] >= height[lastMax]) {
+                for (int x = lastMax + 1; x < i; x++)
+                    total += min(height[lastMax], height[i]) - height[x];
+                lastMax = i;
             }
         }
 
-        return totalWater;
+        lastMax = n - 1;
+        for (int i = n - 1; i >= 0; i--) {
+            if (height[i] > height[lastMax]) {
+                for (int x = lastMax - 1; x > i; x--)
+                    total += min(height[lastMax], height[i]) - height[x];
+                lastMax = i;
+            }
+        }
+
+        return total;
     }
 };
