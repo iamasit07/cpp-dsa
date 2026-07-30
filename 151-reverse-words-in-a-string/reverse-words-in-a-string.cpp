@@ -1,22 +1,18 @@
 class Solution {
 public:
     string reverseWords(string s) {
-        vector<string> words;
-        string word = "";
+        string ans = "", word = "";
         for (char i : s) {
             if (i != ' ')
                 word += i;
             else if (word.length() > 0) {
-                words.push_back(word);
+                ans = word + " " + ans;
                 word = "";
             }
         }
-
-        reverse(words.begin(), words.end());
-        for (auto i : words)
-            word += " " + i;
-        if (word[0] == ' ')
-            word.erase(0, 1);
-        return word;
+        if (word.length() > 0)
+            ans = word + " " + ans;
+        ans.pop_back();
+        return ans;
     }
 };
