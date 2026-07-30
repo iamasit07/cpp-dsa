@@ -4,22 +4,19 @@ public:
         vector<string> words;
         string word = "";
         for (char i : s) {
-            if (i == ' ' and word.length() > 0) {
+            if (i != ' ')
+                word += i;
+            else if (word.length() > 0) {
                 words.push_back(word);
                 word = "";
-            } else if (i != ' ')
-                word += i;
+            }
         }
 
-        if (word.length() > 0)
-            words.push_back(word);
-
         reverse(words.begin(), words.end());
-        word = "";
         for (auto i : words)
-            word += i + " ";
-        word.pop_back();
-
+            word += " " + i;
+        if (word[0] == ' ')
+            word.erase(0, 1);
         return word;
     }
 };
