@@ -3,9 +3,12 @@ public:
     int strStr(string haystack, string needle) {
         if (haystack.length() < needle.length())
             return -1;
+
         for (int i = 0; i < (haystack.length() - needle.length() + 1); i++) {
-            string st = haystack.substr(i, needle.length());
-            if (st == needle)
+            int j = 0;
+            while (j < needle.length() and haystack[i + j] == needle[j])
+                j++;
+            if (j == needle.length())
                 return i;
         }
 
