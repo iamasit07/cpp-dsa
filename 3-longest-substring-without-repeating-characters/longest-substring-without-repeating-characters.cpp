@@ -4,10 +4,10 @@ public:
         int n = s.length(), left = 0, result = 1;
         if (n < 2)
             return n;
-            
-        map<char, int> freq;
+
+        set<char> freq;
         for (int right = 0; right < n; right++) {
-            if (freq.find(s[right]) != freq.end()) {
+            if (freq.count(s[right])) {
                 while (left < right) {
                     freq.erase(s[left]);
                     left++;
@@ -16,7 +16,7 @@ public:
                 }
             }
             result = max(result, right - left + 1);
-            freq[s[right]] = right;
+            freq.insert(s[right]);
         }
 
         return result;
