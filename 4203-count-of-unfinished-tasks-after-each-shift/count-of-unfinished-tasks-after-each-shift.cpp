@@ -1,10 +1,11 @@
 class Solution {
 public:
     vector<int> countTasks(vector<int>& tasks, vector<int>& shifts) {
-        int n = shifts.size(), m = tasks.size();
-        vector<long long> task(tasks.begin(), tasks.end());
+        int m = tasks.size();
+        vector<long long> task(m);
+        task[0] = tasks[0];
         for (int i = 1; i < m; i++)
-            task[i] += task[i - 1];
+            task[i] = task[i - 1] + tasks[i];
 
         vector<int> ans;
         long long total = 0;
