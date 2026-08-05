@@ -1,15 +1,17 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        vector<int> ch(26, 0);
+        vector<int> a(26, 0);
         for (auto i : s)
-            ch[i - 'a']++;
+            a[i - 'a']++;
         for (auto i : t)
-            ch[i - 'a']--;
+            a[i - 'a']--;
 
-        for (auto i : ch)
+        for (auto i : a) {
             if (i != 0)
                 return false;
+        }
+      
         return true;
     }
 };
