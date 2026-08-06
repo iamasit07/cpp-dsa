@@ -3,33 +3,16 @@ public:
     vector<string> summaryRanges(vector<int>& nums) {
         int n = nums.size();
         vector<string> ans;
-        if (n == 0)
-            return ans;
 
-        int left = 0, right = 1;
-        int lastval = nums[0];
-        while (right < n) {
-            if (lastval + 1 == nums[right])
-                lastval = nums[right];
-            else {
-                string s = "";
-                if (left + 1 == right)
-                    s = to_string(nums[left]);
-                else
-                    s = to_string(nums[left]) + "->" + to_string(lastval);
-                ans.push_back(s);
-                left = right;
-                lastval = nums[right];
-            }
-            right++;
+        for (int i = 0; i < n; i++) {
+            int start = i;
+            while(i + 1 < n and nums[i+1] == nums[i] + 1)
+                i++;
+            if(start == i)
+                ans.push_back(to_string(nums[start]));
+            else
+                ans.push_back(to_string(nums[start]) + "->" + to_string(nums[i]));
         }
-
-        string s = "";
-        if (left + 1 == right)
-            s = to_string(nums[left]);
-        else
-            s = to_string(nums[left]) + "->" + to_string(lastval);
-        ans.push_back(s);
 
         return ans;
     }
