@@ -6,30 +6,20 @@ public:
         if (n == 0)
             return {newInterval};
 
-        vector<vector<int>> result;
-        for (int i = 0; i < n; i++) {
-            if (intervals[i][1] >= newInterval[0]) {
-                if (intervals[i][0] > newInterval[1]) {
-                    result.push_back(newInterval);
-                    result.push_back(intervals[i]);
-                } else {
-                    int x = i;
-                    intervals[i][0] = min(intervals[i][0], newInterval[0]);
-                    intervals[i][1] = max(intervals[i][1], newInterval[1]);
-                    while (i < n and intervals[x][1] >= intervals[i][0])
-                        i++;
-                    i--;
-                    result.push_back({min(intervals[i][0], intervals[x][0]),
-                                      max(intervals[i][1], intervals[x][1])});
-                }
-                newInterval = {INT_MAX, INT_MAX};
-            } else
-                result.push_back(intervals[i]);
+        int i = 0;
+        vector<vector<int>> ans;
+        while (i < n and intervals[i][1] < newInterval[0])
+            ans.push_back(intervals[i++]);
+
+        while (i < n and intervals[i][0] <= newInterval[1]) {
+            newInterval[0] = min(newInterval[0], intervals[i][0]);
+            newInterval[1] = max(newInterval[1], intervals[i++][1]);
         }
 
-        if (newInterval[0] != INT_MAX)
-            result.push_back(newInterval);
+        ans.push_back(newInterval);
+        while (i < n)
+            ans.push_back(intervals[i++]);
 
-        return result;
+        return ans;
     }
 };
