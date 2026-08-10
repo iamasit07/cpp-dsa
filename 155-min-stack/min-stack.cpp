@@ -1,27 +1,31 @@
 class MinStack {
+private:
+    vector<int> st;
+    multiset<int> s;
+
 public:
-    stack<int> s1, s2;
     MinStack() {}
 
     void push(int value) {
-        if (s2.empty() || value <= s2.top()) {
-            s1.push(value);
-            s2.push(value);
-        } else
-            s1.push(value);
+        st.push_back(value);
+        s.insert(value);
     }
 
     void pop() {
-        if (s1.empty())
-            return;
-
-        if (s1.top() == s2.top()) {
-            s1.pop();
-            s2.pop();
-        } else
-            s1.pop();
+        s.erase(s.find(st.back()));
+        st.pop_back();
     }
 
-    int top() { return s1.top(); }
-    int getMin() { return s2.top(); }
+    int top() { return st.back(); }
+
+    int getMin() { return *s.begin(); }
 };
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack* obj = new MinStack();
+ * obj->push(value);
+ * obj->pop();
+ * int param_3 = obj->top();
+ * int param_4 = obj->getMin();
+ */
